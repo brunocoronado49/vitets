@@ -9,3 +9,7 @@ export interface User {
 export interface UsersList {
   users: User[]
 }
+
+export interface AppInterface {
+  appTitle?: string
+}

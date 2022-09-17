@@ -31,11 +31,11 @@ const UserForm = ({ addUser }: Props) => {
   return (
     <div>
       <h2>Agrega un usuario</h2>
-      <form>
-        <input type="text" placeholder="Ingresa tu nombre" name="name" />
-        <input type="text" placeholder="Ingresa tu apellido" name="lastname" />
-        <input type="number" placeholder="Ingresa tu edad" name="age" />
-        <input type="text" placeholder="Ingresa tu correo" name="email" />
+      <form onSubmit={onSubmit}>
+        <input type="text" placeholder="Ingresa tu nombre" name="name" onChange={onChange} />
+        <input type="text" placeholder="Ingresa tu apellido" name="lastname" onChange={onChange} />
+        <input type="number" placeholder="Ingresa tu edad" name="age" onChange={onChange} />
+        <input type="text" placeholder="Ingresa tu correo" name="email" onChange={onChange} />
         <button>Guardar</button>
       </form>
     </div>

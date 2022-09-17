@@ -1,32 +1,47 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { User, AppInterface } from './interfaces/User'
+import UserForm from './components/UserForm'
+import UserList from './components/UsersList'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+function App({ appTitle }: AppInterface) {
+  const [users, setUsers] = useState<User[]>([
+    {
+      id: 1,
+      name: "Francisco",
+      lastname: "Rangel",
+      age: 24,
+      email: "francorangel@gmail.com"
+    }
+  ])
+
+  // Arrow function for take the current date in timestamp format
+  const getCurrentDateTimestamp = (): number => new Date().getTime()
+
+  const deleteUser = (uid: number) => {
+    const userDeleted = users.filter(user => user.id !== uid)
+    setUsers(userDeleted)
+  }
+
+  const saveUser = (user: User) => {
+    return setUsers([...users, { ...user, id: getCurrentDateTimestamp() + 2 }])
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="App" style={{ height: "100vh" }}>
+      <h1>{appTitle}</h1>
+      <main>
+        <div className="row">
+          <div className="col">
+            <UserForm addUser={saveUser} />
+          </div>
+          <div className="col">
+            <div className="row">
+              <UserList users={users} deleteUser={deleteUser} />
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   )
 }
